@@ -1,0 +1,527 @@
+<div class="brand-nav">
+
+  <div class="row top">
+    <div class="col-sm-12 p-l-0 p-r-0">
+      <div class="logo-container">
+      <div class="col-sm-3 p-0">
+          <a [routerLink]="['/']" routerLinkActive="router-link-active" class="pull-left">
+            <img src="assets/img/EqAlley_logo_FA.png" alt="" class="brandlogo">
+          </a>
+      </div>
+      <div class="col-sm-5 p-0">
+        <div class="action-container pull-left">
+          <div class="action-button">
+            <a id="newlistings"><!--New Listings-->{{languageregionData?.newListings}}
+              <img src="assets/img/icons/new.png" alt="new">
+            </a>
+          </div>
+
+          <div class="action-button">
+            <a id="hotclosingsoon"><!--HOT! CLOSING SOON-->{{languageregionData?.hotClosingSoon}}
+              <img src="assets/img/icons/hot.gif" alt="new">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-2 p-0">
+        <div class="action-button pull-left">
+          <a >
+            <img class="action-button-img" src="assets/img/EA-Icons/ea-dotw-full.png" alt="hot" style="width:122px !important;height:44px !important;" />
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-2 p-0">
+        <div class="auction-in-progress pull-left">
+          <a id="auctioninprogress">
+            <img class="action-button-img" src="assets/img/EA-Icons/auctionInProgress.png" alt="Auction in progress!">
+          </a>
+        </div>
+      </div>
+      </div>
+      
+      <div class="login-container">
+        <div class="form-row align-items-center login-form pull-right m-0" *ngIf="currentUser?.userId === 'GUEST'">
+
+          <div class="backdrop" [@slideInOut] *ngIf="showBackdrop" (mouseenter)="openBackDrop()" (click)="openBackDrop()"
+            (mouseleave)="closeBackDrop()">
+            <div class="form-check m-t-50 remember-me" (mouseenter)="openBackDrop()">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (mouseenter)="openBackDrop()">
+              <label class="form-check-label" for="defaultCheck1">
+                REMEMBER ME
+              </label>
+            </div>
+
+            <hr style="border-top: 1px solid rgba(255, 255, 255, 0.5);margin-bottom: 5px !important;margin-top: 5px !important;">
+
+            <div class="text-center text-white" (mouseenter)="openBackDrop()">
+              NOT REGISTERED MEMBER YET?
+            </div>
+            <div class="text-center create-account" (mouseenter)="openBackDrop()">
+              <a href (mouseenter)="openBackDrop()" [routerLink]="['/create-account']" routerLinkActive="router-link-active">CREATE ACCOUNT</a>
+            </div>
+          </div>
+
+          <div class="col-auto input-group-sm content" (mouseenter)="openBackDrop()">
+            <input type="text" class="form-control form-input" id="username" placeholder="Bidder ID" name="username" #username="ngModel"
+              [(ngModel)]="formLogin.username" required (focus)="openBackDrop()" (blur)="closeBackDrop()" (mouseenter)="openBackDrop()">
+            <small class="login-small" [ngClass]="{'text-white': showBackdrop}" (mouseenter)="openBackDrop()">
+              <!--Forgot Bidder Id?-->{{languageregionData?.forgotBidderId}}?</small>
+          </div>
+          <div class="col-auto input-group-sm content" (mouseenter)="openBackDrop()">
+            <input type="password" class="form-control form-input" id="password" placeholder="Password" name="password"
+              #password="ngModel" [(ngModel)]="formLogin.password" required (focus)="openBackDrop()" (blur)="closeBackDrop()"
+              (mouseenter)="openBackDrop()">
+            <small class="login-small" [ngClass]="{'text-white': showBackdrop}" (mouseenter)="openBackDrop()">
+              <!--Forgot Password?-->{{languageregionData?.forgotPassword}}?</small>
+          </div>
+          <div class="col-auto content">
+            <button type="submit" name="login" id="login" (mouseenter)="openBackDrop()" class="btn btn-primary btn-sm login-button"
+              (click)="login()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">
+              <!--Login-->{{languageregionData?.login}}</button>
+            <br>
+            <small class="login-small" [ngClass]="{'text-white': showBackdrop}" (mouseenter)="openBackDrop()" [routerLink]="['/create-account']" routerLinkActive="router-link-active" >
+              <!--Create Account-->{{languageregionData?.createAccount}}</small>
+          </div>
+          <div class="col-auto content m-r-10" (mouseenter)="openBackDrop()">
+            <a  id="language-setting" (mouseenter)="openBackDrop()">
+              <i class="fa fa-cog fa-2x settings dropdown-setting-langauage" [ngClass]="{'text-white': showBackdrop}"></i>
+              <br><br>
+              <div class="dropdown-setting-langauage-menu">
+                <form class="px-4 py-3" #form="ngForm">
+                  <div class="form-group input-group-sm">
+                    <label for="regionCode">Choose Region</label>
+                    <select class="form-control" id="regionCode" name="regionCode" #regionCode="ngModel" [(ngModel)]="formRegion.regionCode"
+                      (ngModelChange)="regionChange(formRegion.regionCode)" required>
+                      <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="regionCode.errors?.required && form.submitted">Region is Required!</small>
+                  </div>
+                  <div class="form-group input-group-sm">
+                    <label for="languageCode">Choose Language</label>
+                    <select class="form-control" id="languageCode" name="languageCode" #languageCode="ngModel" [(ngModel)]="formRegion.languageCode"
+                      required>
+                      <option *ngFor="let item of languages" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="languageCode.errors?.required && form.submitted">Language is Required!</small>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block apply-language" (click)="updateLanguage(form)">Apply</button>
+                </form>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-row align-items-center login-form pull-right m-0" *ngIf="currentUser?.userId !== 'GUEST'">
+          <div class="form-group m-b-20 m-r-5">
+            <span class="header-username">{{languageregionData?.hello}} {{currentUser?.firstname}} {{currentUser?.lastname}}
+              ({{currentUser?.userId}})</span>
+          </div>
+          <div class="form-group m-b-20">
+            <button id="myaccount" class="btn btn-block btn-primary btn-sm btn-myaccount">
+              <!-- My Account -->{{languageregionData?.myAccount}}</button>
+          </div>
+          <div class="form-group m-b-20 m-r-5">
+            <button type="button" id="logout" class="btn btn-primary btn-sm btn-block btn-logout m-l-5" (click)="logout()">
+              <!-- Log Out -->{{languageregionData?.logout}}</button>
+          </div>
+
+          <div class="col-auto m-r-15">
+            <a  id="language-setting-two">
+              <i class="fa fa-cog fa-2x settings dropdown-setting-langauage"></i>
+              <br><br>
+              <div class="dropdown-setting-langauage-menu">
+                <form class="px-4 py-3" #form="ngForm">
+                  <div class="form-group input-group-sm">
+                    <label for="regionCode">Choose Region</label>
+                    <select class="form-control" name="regionCode" #regionCode="ngModel" [(ngModel)]="formRegion.regionCode"
+                      (ngModelChange)="regionChange(formRegion.regionCode)" required>
+                      <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="regionCode.errors?.required && form.submitted">Region is Required!</small>
+                  </div>
+                  <div class="form-group input-group-sm">
+                    <label for="languageCode">Choose Language</label>
+                    <select class="form-control" name="languageCode" #languageCode="ngModel" [(ngModel)]="formRegion.languageCode"
+                      required>
+                      <option *ngFor="let item of languages" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="languageCode.errors?.required && form.submitted">Language is Required!</small>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block apply-language" (click)="updateLanguage(form)">Apply</button>
+                </form>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+        
+      <div class="login-container-mobile">
+        <div class="col-auto pull-right" *ngIf="currentUser?.userId === 'GUEST'">
+          <a  id="language-setting-two" placement="bottom" tooltipClass="icon-header" ngbTooltip="Language">
+            <i class="fa fa-cog fa-2x settings dropdown-setting-langauage"></i>
+            <br><br>
+            <div class="dropdown-setting-langauage-menu">
+              <form class="px-4 py-3" #form="ngForm">
+                <div class="form-group input-group-sm">
+                  <label for="regionCode">Choose Region</label>
+                  <select class="form-control" name="regionCode" #regionCode="ngModel" [(ngModel)]="formRegion.regionCode"
+                    (ngModelChange)="regionChange(formRegion.regionCode)" required>
+                    <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
+                  </select>
+                  <small class="globalErrMsg" *ngIf="regionCode.errors?.required && form.submitted">Region is Required!</small>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="languageCode">Choose Language</label>
+                  <select class="form-control" name="languageCode" #languageCode="ngModel" [(ngModel)]="formRegion.languageCode"
+                    required>
+                    <option *ngFor="let item of languages" [value]="item.id">{{item.name}}</option>
+                  </select>
+                  <small class="globalErrMsg" *ngIf="languageCode.errors?.required && form.submitted">Language is Required!</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block apply-language" (click)="updateLanguage(form)">Apply</button>
+              </form>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto pull-right p-r-0" *ngIf="currentUser?.userId === 'GUEST'">
+          <a  id="user-mobile" placement="bottom" tooltipClass="icon-header" ngbTooltip="Login"><i class="fas fa-user user-mobile"></i></a>
+          <br><br>
+          <div class="dropdown-user-login-menu">
+            <form class="px-4 py-3" #form="ngForm">
+              <div class="form-group input-group-sm">
+                <label for="regionCode">Bidder ID</label>
+                <input type="text" class="form-control form-input" id="username-mobile" placeholder="Bidder ID" name="username"
+                  #username="ngModel" [(ngModel)]="formLogin.username" required>
+                <small class="globalErrMsg" *ngIf="username.errors?.required && form.submitted">Bidder ID is Required!</small>
+              </div>
+              <div class="form-group input-group-sm">
+                <label for="languageCode">Password</label>
+                <input type="password" class="form-control form-input" id="password-mobile" placeholder="Password" name="password"
+                  #password="ngModel" [(ngModel)]="formLogin.password" required (focus)="openBackDrop()" (blur)="closeBackDrop()"
+                  (mouseenter)="openBackDrop()">
+                <small class="globalErrMsg" *ngIf="password.errors?.required && form.submitted">Password is Required!</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block login-button" (click)="login(form)">Login</button>
+              <button type="submit" class="btn btn-primary btn-block signup-button" [routerLink]="['/']" routerLinkActive="router-link-active" >Create Account</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="form-row align-items-center login-form pull-right m-0" *ngIf="currentUser?.userId !== 'GUEST'">
+          <div class="form-group m-b-20 m-r-15">
+            <span class="header-username">{{languageregionData?.hello}} {{currentUser?.firstname}} {{currentUser?.lastname}}
+              ({{currentUser?.userId}})</span>
+          </div>
+          <div class="form-group m-b-20 m-r-15">
+              <a  id="user-mobile" placement="bottom" tooltipClass="icon-header" ngbTooltip="{{languageregionData?.myAccount}}"><i class="fas fa-user-circle user-myaccount"></i></a>
+          </div>
+          <div class="form-group m-b-20 m-r-5">
+              <a  id="user-mobile" placement="bottom" tooltipClass="icon-header" ngbTooltip="{{languageregionData?.logout}}" (click)="logout()"><i class="fas fa-sign-out-alt user-logout"></i></a>
+          </div>
+
+          <div class="col-auto m-r-15">
+            <a  id="language-setting-two">
+              <i class="fa fa-cog fa-2x settings dropdown-setting-langauage" placement="bottom" tooltipClass="icon-header" ngbTooltip="Language"></i>
+              <br><br>
+              <div class="dropdown-setting-langauage-menu">
+                <form class="px-4 py-3" #form="ngForm">
+                  <div class="form-group input-group-sm">
+                    <label for="regionCode">Choose Region</label>
+                    <select class="form-control" name="regionCode" #regionCode="ngModel" [(ngModel)]="formRegion.regionCode"
+                      (ngModelChange)="regionChange(formRegion.regionCode)" required>
+                      <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="regionCode.errors?.required && form.submitted">Region is Required!</small>
+                  </div>
+                  <div class="form-group input-group-sm">
+                    <label for="languageCode">Choose Language</label>
+                    <select class="form-control" name="languageCode" #languageCode="ngModel" [(ngModel)]="formRegion.languageCode"
+                      required>
+                      <option *ngFor="let item of languages" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <small class="globalErrMsg" *ngIf="languageCode.errors?.required && form.submitted">Language is Required!</small>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block apply-language" (click)="updateLanguage(form)">Apply</button>
+                </form>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row main-nav">
+		<nav class="navbar navbar-expand-lg navbar-light w-100 p-0">
+			<div class="collapse navbar-collapse" id="sub-navigation">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item dropdown dropdown-large">
+								<a  class="nav-link dropdown-toggle" data-toggle="dropdown" (click)="initSubitems()">{{languageregionData?.findEquipment}} 
+									<b class="caret"></b>
+								</a>
+
+								<div class="dropdown-menu dropdown-menu-large row">
+									<div class="col-sm-3 left-pane">
+										<ul>
+                      <li *ngFor="let item of categories let i = index" [attr.data-index]="i" (mouseover)="onMouseover(i)" [ngClass]="{active: i == activeIndex}">{{item.name}}</li>
+                    </ul>
+									</div>
+									<div class="col-sm-9 right-pane" (mouseover)="hover = true">
+                      <div class="" *ngIf="hover">
+                        <ul class="sub-menu-items">
+                          <li *ngFor="let sub of subccategories"><a  class="sub-items" [ngClass]="{linkmute: sub.count <= 0}">{{sub.name}} ({{sub.count}})</a></li>
+                        </ul>
+                      </div>
+									</div>
+								</div>
+								
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" ><!--Equipment Watch-->{{languageregionData?.equipmentWatch}}</a>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link" ><!--My Bid Watch-->{{languageregionData?.bidWatch}}</a>
+            
+					</li>
+					<li class="nav-item">
+            <a class="nav-link"  class="nav-link dropdown-toggle" data-toggle="dropdown"><!--Sell Equipment-->{{languageregionData?.sellEquipment}}</a>
+            
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-item"><a >Some action</a></li>
+
+              <li class="dropdown-item"><a >Some other action</a></li>
+
+              <li class="dropdown-submenu">
+                <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                <ul class="dropdown-menu third-item">
+                  <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                  <!-- <li class="dropdown-submenu">
+                    <a class="dropdown-item" >Even More..</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                      <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                        <ul class="dropdown-menu">
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                    </ul>
+                  </li> -->
+                  <li class="dropdown-item"><a >Second level</a></li>
+                  <li class="dropdown-item"><a >Second level</a></li>
+                </ul>
+              </li>
+              
+              <li class="dropdown-submenu">
+                  <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                  <ul class="dropdown-menu third-item">
+                    <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                    <!-- <li class="dropdown-submenu">
+                      <a class="dropdown-item" >Even More..</a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                        <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                          <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                      </ul>
+                    </li> -->
+                    <li class="dropdown-item"><a >Second level</a></li>
+                    <li class="dropdown-item"><a >Second level</a></li>
+                  </ul>
+                </li>
+
+            </ul>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link"  class="nav-link dropdown-toggle" data-toggle="dropdown"><!--My Purchases-->{{languageregionData?.myPurchases}}</a>
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-item"><a >Some action</a></li>
+
+              <li class="dropdown-item"><a >Some other action</a></li>
+
+              <li class="dropdown-submenu">
+                <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                <ul class="dropdown-menu third-item">
+                  <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                  <!-- <li class="dropdown-submenu">
+                    <a class="dropdown-item" >Even More..</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                      <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                        <ul class="dropdown-menu">
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                    </ul>
+                  </li> -->
+                  <li class="dropdown-item"><a >Second level</a></li>
+                  <li class="dropdown-item"><a >Second level</a></li>
+                </ul>
+              </li>
+              
+              <li class="dropdown-submenu">
+                  <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                  <ul class="dropdown-menu third-item">
+                    <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                    <!-- <li class="dropdown-submenu">
+                      <a class="dropdown-item" >Even More..</a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                        <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                          <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                      </ul>
+                    </li> -->
+                    <li class="dropdown-item"><a >Second level</a></li>
+                    <li class="dropdown-item"><a >Second level</a></li>
+                  </ul>
+                </li>
+
+            </ul>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link"  class="nav-link dropdown-toggle" data-toggle="dropdown">Lease Maturities<!--{{languageregionData?.myPurchases}}--></a>
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-item"><a >Some action</a></li>
+
+              <li class="dropdown-item"><a >Some other action</a></li>
+
+              <li class="dropdown-submenu">
+                <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                <ul class="dropdown-menu third-item">
+                  <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                  <!-- <li class="dropdown-submenu">
+                    <a class="dropdown-item" >Even More..</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                      <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                        <ul class="dropdown-menu">
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                    </ul>
+                  </li> -->
+                  <li class="dropdown-item"><a >Second level</a></li>
+                  <li class="dropdown-item"><a >Second level</a></li>
+                </ul>
+              </li>
+              
+              <li class="dropdown-submenu">
+                  <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                  <ul class="dropdown-menu third-item">
+                    <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                    <!-- <li class="dropdown-submenu">
+                      <a class="dropdown-item" >Even More..</a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                        <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                          <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                      </ul>
+                    </li> -->
+                    <li class="dropdown-item"><a >Second level</a></li>
+                    <li class="dropdown-item"><a >Second level</a></li>
+                  </ul>
+                </li>
+
+            </ul>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link"  class="nav-link dropdown-toggle" data-toggle="dropdown"><!--Tools-->{{languageregionData?.tools}}</a>
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-item"><a >Some action</a></li>
+
+              <li class="dropdown-item"><a >Some other action</a></li>
+
+              <li class="dropdown-submenu">
+                <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                <ul class="dropdown-menu third-item">
+                  <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                  <!-- <li class="dropdown-submenu">
+                    <a class="dropdown-item" >Even More..</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                      <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                        <ul class="dropdown-menu">
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                          <li class="dropdown-item"><a >4th level</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-item"><a >3rd level</a></li>
+                    </ul>
+                  </li> -->
+                  <li class="dropdown-item"><a >Second level</a></li>
+                  <li class="dropdown-item"><a >Second level</a></li>
+                </ul>
+              </li>
+              
+              <li class="dropdown-submenu">
+                  <a class="dropdown-item" tabindex="-1" >Hover me for more options</a>
+                  <ul class="dropdown-menu third-item">
+                    <li class="dropdown-item"><a tabindex="-1" >Second level</a></li>
+                    <!-- <li class="dropdown-submenu">
+                      <a class="dropdown-item" >Even More..</a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                        <li class="dropdown-submenu"><a class="dropdown-item" >another level</a>
+                          <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                            <li class="dropdown-item"><a >4th level</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown-item"><a >3rd level</a></li>
+                      </ul>
+                    </li> -->
+                    <li class="dropdown-item"><a >Second level</a></li>
+                    <li class="dropdown-item"><a >Second level</a></li>
+                  </ul>
+                </li>
+
+            </ul>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0 input-group-sm p-r-15">
+						<div class="input-group input-group-sm">
+								<input type="text" class="form-control" placeholder="Quick Search">
+								<div class="input-group-append search-btn">
+									<button class="btn btn-sm btn-outline-primary" type="button"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+				</form>
+			</div>
+		</nav>
+  </div>
+</div>

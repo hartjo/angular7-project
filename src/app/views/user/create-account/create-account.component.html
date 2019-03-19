@@ -1,0 +1,110 @@
+<div class="global-container">
+  <h1 class="page-title">NEW ACCOUNT REGISTRATION</h1>
+  <p class="font-13 f-400">Please complete the form below and submit. An Equipment Alley representative will contact you.</p>
+
+  <p class="font-12 f-400 pull-right">* Required Fields</p>
+  <div class="form-header m-t-35">
+      Account Type
+  </div>
+
+  <form>
+    
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="form-group row">
+          <label for="accountType" class="col-md-4 col-form-label text-left f-600 font-12">* {{createForm?.accountType?.label}} </label>
+          <div class="col-md-8">
+            <select class="form-control" id="accountType" name="accountType" #accountType="ngModel" [(ngModel)]="formModel.accountType">
+              <option value=""></option>
+              <option *ngFor="let item of createForm?.accountType?.options" [value]="item.id">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+
+      </div>
+
+    </div>
+
+    <div class="form-header m-t-35">
+        Site Access
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+          <div class="form-group row">
+            <label for="email" class="col-md-4 col-form-label text-right f-600 font-12">* {{createForm?.email?.label}} </label>
+            <div class="col-md-8">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="" id="email" name="email" #email="ngModel" [(ngModel)]="formModel.email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label for="confirmEmail" class="col-md-4 col-form-label text-right f-600 font-12">* {{createForm?.confirmEmail?.label}} </label>
+          <div class="col-md-8">
+              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="" id="confirmEmail" name="confirmEmail" #confirmEmail="ngModel" [(ngModel)]="formModel.confirmEmail">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group row">
+              <label for="otherEmail" class="col-md-4 col-form-label text-right f-600 font-12">* {{createForm?.otherEmail?.label}} </label>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="" id="otherEmail" name="otherEmail" #otherEmail="ngModel" [(ngModel)]="formModel.otherEmail">
+                  <small id="emailHelp" class="form-text text-muted">(Separate with comma)</small>
+              </div>
+            </div>
+        </div>
+  
+        <div class="col-md-6">
+        </div>
+  
+      </div>
+
+      <div class="row">
+
+          <div class="col-md-6">
+              <div class="form-group row">
+                <label for="securityQuestion" class="col-md-4 col-form-label text-right f-600 font-12">* {{createForm?.securityQuestion?.label}} </label>
+                <div class="col-md-8">
+                    <select class="form-control" id="securityQuestion" name="securityQuestion" #securityQuestion="ngModel" [(ngModel)]="formModel.securityQuestion">
+                      <option value=""></option>
+                      <option *ngFor="let item of createForm?.securityQuestion?.options" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+              </div>
+          </div>
+    
+          <div class="col-md-6">
+              <div class="form-group row">
+                  <label for="securityAnswer" class="col-md-4 col-form-label text-right f-600 font-12">* {{createForm?.securityAnswer?.label}} </label>
+                  <div class="col-md-8">
+                      <input type="text" class="form-control" placeholder="" id="securityAnswer" name="securityAnswer" #securityAnswer="ngModel" [(ngModel)]="formModel.securityAnswer">
+                  </div>
+                </div>
+          </div>
+    
+        </div>
+
+        <div class="form-header m-t-35">
+            Company Information
+        </div>
+
+        <div class="row">
+
+        </div>
+    
+  </form>
+</div>

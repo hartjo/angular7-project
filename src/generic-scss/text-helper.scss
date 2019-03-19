@@ -1,0 +1,15 @@
+$spaceamounts: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+@each $space in $spaceamounts {
+    .f-#{$space} {
+        font-weight: #{$space} !important;
+    }
+}
+
+$textsize: (8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21);
+
+@each $text in $textsize {
+    .font-#{$text} {
+        font-size: #{$text}px !important;
+    }
+}

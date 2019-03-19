@@ -1,0 +1,16 @@
+.footer-container {
+    padding: 30px 0;
+    background-color: #231f20;
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.footer-list {
+    & li {
+        display: inline-block;
+        padding: 0 20px;
+        & a {
+            color: #FFFFFF !important;
+        }
+    }
+}

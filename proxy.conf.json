@@ -1,0 +1,22 @@
+{
+    "/equipmentalley/api": {
+       "target":  {
+         "host": "localhost",
+         "protocol": "http:",
+         "port": 8080
+       },
+       "secure": true,
+       "changeOrigin": true,
+       "logLevel": "debug"
+    },
+    "/equipmentalley/image": {
+      "target":  {
+        "host": "localhost",
+        "protocol": "http:",
+        "port": 8080
+      },
+      "secure": true,
+      "changeOrigin": true,
+      "logLevel": "debug"
+   }
+}

@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'generic-scss/space-helper.scss';
+@import 'generic-scss/color-helper.scss';
+@import 'generic-scss/text-helper.scss';
+
+
+body {
+    color: #404042 !important;
+    font-size: 14px;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.globalErrMsg {
+    color: $error-color;
+}
+
+select {
+    cursor: pointer;
+}
+
+section, h1, li, img {
+    -moz-transition: width 1s ease-in-out, left 1.5s ease-in-out;
+    -webkit-transition: width 1s ease-in-out, left 1.5s ease-in-out;
+    -moz-transition: width 1s ease-in-out, left 1.5s ease-in-out;
+    -o-transition: width 1s ease-in-out, left 1.5s ease-in-out;
+    transition: width 1s ease-in-out, left 1.5s ease-in-out;
+}
+
+p, a, span, div, li, ul {
+    -webkit-transition: color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+       -moz-transition: color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+         -o-transition: color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+            transition: color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+}
+
+p, a, span, div, li, ul {
+    -webkit-transition: background-color .5s, color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+       -moz-transition: background-color .5s, color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+         -o-transition: background-color .5s, color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+            transition: background-color .5s, color .5s, font-size 1s, visibility .5s, opacity .5s ease-out;
+}
+
+
+body, html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-white {
+    color: #FFFFFF !important;
+}
+
+.text-black {
+    color: #000000 !important;
+}
+
+.global-container {
+    max-width: 1350px !important;
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.page-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 24px;
+}

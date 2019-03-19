@@ -1,0 +1,10 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid">
+  <app-header> </app-header>
+  <div class="main-router p-rel">
+      <app-loader *ngIf="loading"></app-loader>
+      <app-breadcrumbs *ngIf="showbreadcrumbs"></app-breadcrumbs>
+      <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>

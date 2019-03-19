@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-sm-12 home-nav" id="home-nav">
+    <ul class="home-list">
+      <li class="list-item">{{languageregionData?.menuFarmEquipment}}</li>
+      <li class="list-item">{{languageregionData?.menuConstructionEquipment}}</li>
+      <li class="list-item">{{languageregionData?.menuLandscape}}</li>
+      <li class="list-item">{{languageregionData?.menuTrailersTrucksVehicles}}</li>
+      <li class="list-item">{{languageregionData?.menuPartsAccessories}}</li>
+    </ul>
+  </div>
+  
+  <div class="col-sm-12 home-content m-t-50">
+      <div class="slick p-rel" style="min-height:461px;">
+        <div class="m-l-20 m-b-20 f-500">HOT! CLOSING SOON</div>
+        <app-loader *ngIf="contentLoading"></app-loader>
+        <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig" (afterChange)="afterChange($event)" >
+            
+            <div ngxSlickItem *ngFor="let item of gridListings" class="slide">
+                  <div class="listings-card">
+                      <div class="listing-header">
+                        <span class="icon"><img src="/assets/img/badges/hot.png" alt=""></span> <span class="text">Closing on: {{item.closingOn}}</span>
+                      </div>
+
+                      <!-- <div class="listing-img" [style.background-image]="item.mainImageUrl"> -->
+                      <div class="listing-img" [ngStyle]="{'background': 'url(' + item.mainImageUrl + ')'}">
+                        <!-- <img class="item-img" src="/assets/1.png" alt=""> -->
+
+                        <div class="quick-buttons">
+                          <div class="listing-bidwatch">Bid Watch</div>
+                          <div class="listing-quickview">Quick View</div>
+                        </div>
+                      </div>
+
+                      <div class="listing-desc">
+                        <div class="title f-600">{{item.modelDetail}}</div>
+                        <div class="id f-200">Offer ID #{{item.offerId}}</div>
+                        <div class="location f-200">
+                            <span class="sub-title"><!-- Location: --> Location: </span>
+                            <span *ngIf="item.location !== ''">{{item.location}}</span>
+                            <span *ngIf="item.location === ''">n/a</span>
+                        </div>
+                        <div class="hours f-200" *ngIf="item.hours !== 0">
+                            <span class="sub-title"><!-- Hours: --> Hours: </span>
+                            <span>{{item.hours}}</span>
+                        </div>
+                        <div class="current-bid f-200" *ngIf="item.currentBid !== '0'">
+                            <span class="sub-title">Current Bid: </span>
+                            <span>{{item.currentBid}}</span>
+                        </div>
+                      </div>
+
+                      <div class="listing-footer">
+                        <img *ngFor="let icon of item.icons" [ngClass]="{'d-none': icon.icon === 'icon-hot.png'}" src="/assets/img/EA-Icons/{{icon.icon}}" class="footer-icons" alt="" placement="right" tooltipClass="icon-tooltip" ngbTooltip="{{icon.description}}" width="20">
+                      </div>
+                      
+                  </div>
+            </div>
+        </ngx-slick>
+    
+        <!-- <button (click)="addSlide()">Add</button> -->
+        <!-- <button (click)="removeSlide()">Remove</button>
+        <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
+        <button (click)="slickModal.unslick()">unslick</button> -->
+      </div>
+
+      <div class="home-text m-t-60 m-b-60">
+        <h1 class="text-center ng-binding">
+           <!-- The Equipment Alley Advantage -->{{languageregionData?.seoHomePageTheEquipmentAlleyAdvantage}}
+        </h1>
+        <div class="container">
+           <div class="row auctions-row">
+              <div class="col-sm-6">
+                 <h2 class="ng-binding">
+                    <!-- Quality Used Equipment -->{{languageregionData?.seoHomePageQualityUsedEquipment}}
+                 </h2>
+                 <!-- <p>A large inventory of used construction and agricultural equipment. Equipment listed for purchase or in an auction can be bid on with the help of your local dealer.</p> -->
+                 <p class="ng-binding">{{languageregionData?.seoHomePageQualityUsedEquipmentContent}}</p>
+                 <h2 class="ng-binding">
+                    <!-- Flexible Search Options -->{{languageregionData?.seoHomePageFlexibleSearchOptions}}
+                 </h2>
+                 <!-- <p>Find Equipment, Quick Search and Advance Search options provide you with flexible approaches to locate equipment.</p> -->
+                 <p class="ng-binding">{{languageregionData?.seoHomePageFlexibleSearchOptionsContent}}</p>
+              </div>
+              <div class="col-sm-6">
+                 <h2 class="ng-binding">
+                    <!-- Receive Notifications -->{{languageregionData?.seoHomePageReceiveNotifications}}
+                 </h2>
+                 <!-- <p>Set up a notification with Equipment Watch and we will advise when the equipment you need is listed on the site.</p> -->
+                 <p class="ng-binding">{{languageregionData?.seoHomePageReceiveNotificationsContent}}</p>
+                 <h2 class="ng-binding">
+                    <!-- Detailed Equipment Specifications -->{{languageregionData?.seoHomePageDetailedEquipmentSpecifications}}
+                 </h2>
+                 <!-- <p>Equipment listings provide detailed information as well as icons to easily identify whether the equipment has been inspected, has warranty or is close to being sold.</p> -->
+                 <p class="ng-binding">{{languageregionData?.seoHomePageDetailedEquipmentSpecificationsContent}}</p>
+              </div>
+           </div>
+        </div>
+      </div>
+  </div>
+
+
+</div>
